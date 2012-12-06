@@ -1,0 +1,39 @@
+# Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
+
+_bit='32'
+pkgname="oraclejdk7-${_bit}"
+pkgver='7u9'
+pkgrel='1'
+epoch=
+pkgdesc='Oracle JDK 7 (CumulusHost)'
+arch=('i686' 'x86_64')
+url='http://www.oracle.com/technetwork/java/javase/downloads/jdk7u9-downloads-1859576.html'
+license=('unknown')
+groups=()
+depends=('glibc' 'libjpeg-turbo' 'lcms2' 'nss' 'ca-certificates-java')
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=('java-environment=7' 'java-runtime=7' 'java-runtime-headless=7' 'java-web-start=7')
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("http://shur.atlashost.eu/files/jdk-$pkgver-linux-${_bit}.tar.gz")
+noextract=()
+md5sums=('f66c309ab38d6ba6651f7d98cd58d9d5')
+
+build() {
+  cd "$srcdir"
+  tar -xf "jdk-$pkgver-linux-${_bit}.tar.gz"
+  mkdir -p 'opt/java'
+  mv 'jdk1.7.0_09' "$pkgname"
+  mv "$pkgname" 'opt/java'
+  mv 'opt' "$pkgdir"
+
+  cd "$pkgdir"
+  mkdir -p 'etc/conf.d'
+  echo "JAVA_HOME=\"/opt/java/$pkgname\"" > "etc/conf.d/$pkgname"
+}
