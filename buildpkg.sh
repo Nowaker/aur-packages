@@ -11,9 +11,9 @@ for pkg in "$@"; do
   cd "$dir"
 
   makepkg -c && {    
-    mv *.tar "$repo"
+    mv *.tar* "$repo"
     find . -name PKGBUILD -prune -o -exec rm {} \;
   }
 done
 
-repo-add -f "$repo/shur.db.tar.xz" "$repo"/*.tar
+repo-add -f "$repo/shur.db.tar.xz" "$repo"/*.tar*

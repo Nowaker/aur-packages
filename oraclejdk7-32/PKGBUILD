@@ -3,14 +3,15 @@
 _bit='32'
 pkgname="oraclejdk7-${_bit}"
 pkgver='7u9'
-pkgrel='1'
+pkgrel='2'
 epoch=
 pkgdesc='Oracle JDK 7 (CumulusHost)'
-arch=('i686' 'x86_64')
+arch=('x86_64')
 url='http://www.oracle.com/technetwork/java/javase/downloads/jdk7u9-downloads-1859576.html'
 license=('unknown')
 groups=()
-depends=('glibc' 'libjpeg-turbo' 'lcms2' 'nss' 'ca-certificates-java')
+depends=('lib32-glibc' 'lib32-libjpeg-turbo' 'lcms2' 'lib32-nss' 'ca-certificates-java')
+# TODO: Add dependency on lib32-lcms2 once they add it to repo. https://bugs.archlinux.org/task/32994
 makedepends=()
 checkdepends=()
 optdepends=()
@@ -24,7 +25,7 @@ changelog=
 source=("http://shur.atlashost.eu/files/jdk-$pkgver-linux-${_bit}.tar.gz")
 noextract=()
 md5sums=('f66c309ab38d6ba6651f7d98cd58d9d5')
-PKGEXT='.tar'
+PKGEXT='.tar.gz'
 
 build() {
   zip="jdk-$pkgver-linux-${_bit}.tar.gz"

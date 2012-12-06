@@ -24,7 +24,7 @@ changelog=
 source=("http://shur.atlashost.eu/files/jdk-$pkgver-linux-${_bit}.tar.gz")
 noextract=()
 md5sums=('372b9dcde93230522672837e1820f939')
-PKGEXT='.tar'
+PKGEXT='.tar.gz'
 
 build() {
   zip="jdk-$pkgver-linux-${_bit}.tar.gz"
