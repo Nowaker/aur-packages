@@ -1,12 +1,12 @@
 # Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
 
-_bit='32'
+_bit='64'
 pkgname="oraclejdk7-${_bit}"
 pkgver='7u9'
 pkgrel='1'
 epoch=
 pkgdesc='Oracle JDK 7 (CumulusHost)'
-arch=('i686' 'x86_64')
+arch=('x86_64')
 url='http://www.oracle.com/technetwork/java/javase/downloads/jdk7u9-downloads-1859576.html'
 license=('unknown')
 groups=()
@@ -23,7 +23,7 @@ install=
 changelog=
 source=("http://shur.atlashost.eu/files/jdk-$pkgver-linux-${_bit}.tar.gz")
 noextract=()
-md5sums=('f66c309ab38d6ba6651f7d98cd58d9d5')
+md5sums=('372b9dcde93230522672837e1820f939')
 PKGEXT='.tar'
 
 build() {
