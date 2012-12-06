@@ -3,7 +3,7 @@
 _bit='64'
 pkgname="oraclejdk7-${_bit}"
 pkgver='7u9'
-pkgrel='1'
+pkgrel='2'
 epoch=
 pkgdesc='Oracle JDK 7 (CumulusHost)'
 arch=('x86_64')
@@ -35,6 +35,7 @@ build() {
   mv 'jdk1.7.0_09' "$pkgname"
   mv "$pkgname" 'opt/java'
   mv 'opt' "$pkgdir"
+  chown -R root:root "$pkgdir"
 
   cd "$pkgdir"
   mkdir -p 'etc/conf.d'
