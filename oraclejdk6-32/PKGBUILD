@@ -1,0 +1,54 @@
+# Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
+
+_major='6'
+_minor='37'
+_bit='32'
+pkgname="oraclejdk${_major}-${_bit}"
+pkgver="${_major}u${_minor}"
+pkgrel='1'
+epoch=
+pkgdesc="Oracle JDK ${_major} (CumulusHost)"
+arch=('x86_64')
+url='http://www.oracle.com/technetwork/java/javase/downloads/jdk6u37-downloads-1859587.html'
+license=('unknown')
+groups=()
+depends=('lib32-glibc' 'lib32-libjpeg-turbo' 'lcms2' 'lib32-nss' 'ca-certificates-java')
+# TODO: Add dependency on lib32-lcms2 once they add it to repo. https://bugs.archlinux.org/task/32994
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=("java-environment=${_major}" "java-runtime=${_major}" "java-runtime-headless=${_major}" "java-web-start=${_major}")
+conflicts=()
+replaces=()
+backup=()
+options=()
+install=
+changelog=
+source=("http://shur.atlashost.eu/files/jdk-$pkgver-linux-${_bit}.bin")
+noextract=()
+md5sums=('a7a3d53b10f8bb1fb598dd7d936ecb1d')
+PKGEXT='.tar.gz'
+
+build() {
+  zip="jdk-$pkgver-linux-${_bit}.bin"
+  cd "$srcdir"
+  chmod +x "$zip"
+  
+  (
+    pid="$BASHPID"
+    "./$zip" 2> /dev/null | while read line; do
+      [[ "$line" == 'Press Enter to continue.....' ]] && kill -9 $pid
+    done
+  ) || echo
+
+  rm "../$zip"
+  mkdir -p 'opt/java'
+  mv "jdk1.${_major}.0_${_minor}" "$pkgname"
+  mv "$pkgname" 'opt/java'
+  mv 'opt' "$pkgdir"
+  chown -R root:root "$pkgdir"
+
+  cd "$pkgdir"
+  mkdir -p 'etc/conf.d'
+  echo "JAVA_HOME=\"/opt/java/$pkgname\"" > "etc/conf.d/$pkgname"
+}

@@ -10,7 +10,7 @@ for pkg in "$@"; do
   [ -d "$dir" ] || continue
   cd "$dir"
 
-  makepkg -c && {    
+  makepkg -cf && {    
     mv *.tar* "$repo"
     find . -name PKGBUILD -prune -o -exec rm {} \;
   }
