@@ -1,0 +1,11 @@
+# Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
+
+pkgname='oraclejdk-all'
+pkgver='1'
+pkgrel='1'
+epoch=
+pkgdesc='Oracle JDK 6 & 7 (CumulusHost)'
+arch=('x86_64')
+license=('unknown')
+depends=('oraclejdk6-32' 'oraclejdk6-64' 'oraclejdk7-32' 'oraclejdk7-64')
+PKGEXT='.tar.gz'
