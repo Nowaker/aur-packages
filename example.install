@@ -1,30 +1,7 @@
-create_users() {
-  for nick in nowaker kwiat; do
-    getent group $nick > /dev/null || /usr/sbin/groupadd $nick
-    getent passwd $nick > /dev/null || (
-      /usr/sbin/useradd -g $nick -d "/home/$nick" -m -s /bin/zsh $nick &> /dev/null
-      echo ">>> User $nick has been created, do not forget to set a password."
-    )    
-  done  
-}
-
-update_chown() {
-  for nick in nowaker kwiat; do
-    echo ">>> Setting ownership of ~$nick/"
-    /usr/bin/chown -R $nick:$nick /home/$nick
-  done
-}
-
-prepare_vimrc() {  
-  echo 'runtime! /etc/vimrc-stratushost' >> /etc/vimrc
-}
-
 post_install() {
-  create_users
-  update_chown
-  prepare_vimrc
+  echo
 }
 
 post_upgrade() {
-  update_chown
+  echo
 }
