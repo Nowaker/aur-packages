@@ -1,0 +1,33 @@
+# Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
+
+pkgname=''
+pkgdesc=''
+pkgver='1'
+pkgrel='1'
+epoch=
+arch=('i686' 'x86_64')
+url=''
+license=('unknown')
+groups=()
+depends=()
+makedepends=('git')
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=()
+options=()
+#install="$pkgname.install"
+changelog=
+source=()
+noextract=()
+md5sums=()
+PKGEXT='.tar.gz'
+
+build() {
+  cd "$srcdir"
+  
+  cd "$pkgdir"
+  
+}
