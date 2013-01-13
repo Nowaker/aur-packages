@@ -12,7 +12,7 @@ for pkg in "$@"; do
 
   makepkg -cf && {    
     mv *.tar* "$repo"
-    find . -name PKGBUILD -prune -o -exec rm {} \;
+    find . -name PKGBUILD -o -name '*.install' -prune -o -exec rm {} \;
   }
 done
 
