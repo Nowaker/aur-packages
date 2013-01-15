@@ -13,7 +13,6 @@ for pkg in "$@"; do
   makepkg -cf && {    
     mv *.tar* "$repo"
     find . -name PKGBUILD -o -name '*.install' -prune -o -exec rm {} \;
+    repo-add -f "$repo/shur.db.tar.xz" "$repo"/*.tar*
   }
 done
-
-repo-add -f "$repo/shur.db.tar.xz" "$repo"/*.tar*

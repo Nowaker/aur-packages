@@ -13,5 +13,6 @@ if [ -d "$pkgname" ]; then
 fi
 
 mkdir -p "$pkgname"
-cp PKGBUILD.example "$pkgname" "$pkgname/PKGBUILD"
+cp PKGBUILD.example "$pkgname/PKGBUILD"
+sed -i "s/pkgname=''/pkgname='$pkgname'/" "$pkgname/PKGBUILD"
 cp example.install "$pkgname/$pkgname.install"
