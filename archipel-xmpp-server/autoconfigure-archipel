@@ -1,0 +1,33 @@
+#!/bin/bash
+
+set -e
+
+domain=`hostname`
+password=`pwgen -sn 40`
+echo "Password for admin@$domain is: $password"
+echo 'Write it down as it will not appear again.'
+
+sed -i \
+    "s/#ERLANG_NODE=ejabberd@localhost/ERLANG_NODE=ejabberd@$domain/" \
+    /etc/ejabberd/ejabberdctl.cfg
+
+systemctl enable ejabberd
+systemctl start ejabberd
+
+ejabberdctl register admin "$domain" "$password"
+
+jid="--jid=admin@$domain --pasword=$password"
+archipel-tagnode $jid --create
+archipel-rolesnode $jid --create
+archipel-adminaccounts $jid --create
+archipel-vmrequestnode $jid --create
+archipel-vmparkingnode $jid --create # deprecated
+
+set +e
+
+archipel-testxmppserver $jid
+
+echo 'If tests passed, everything went good.'
+echo 
+echo "Password for admin@$domain is: $password"
+echo 'Write it down as it will not appear again.'

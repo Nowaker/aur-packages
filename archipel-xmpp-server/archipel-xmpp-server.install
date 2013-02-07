@@ -1,0 +1,15 @@
+archipel_message() {
+  msg 'Now finish configuring Archipel XMPP server:'
+  msg2 'put your trusted certificate in /etc/ejabberd/ejabberd.pem'
+  msg2 'set your hostname with `hostnamectl --static your.fqdn.com`'
+  msg2 'make suse `hostname` returns your.fqdn.com'
+  msg2 'run `/usr/bin/autoconfigure-archipel`'  
+}
+
+post_install() {
+  archipel_message
+}
+
+post_upgrade() {
+  archipel_message
+}

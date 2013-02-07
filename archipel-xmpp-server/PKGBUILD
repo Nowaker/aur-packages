@@ -1,0 +1,35 @@
+# Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
+
+pkgname='archipel-xmpp-server'
+pkgdesc='A solution to manage and supervise virtual machines. (XMPP Server installer)'
+pkgver='1'
+pkgrel='1'
+epoch=
+arch=('i686' 'x86_64')
+url='http://archipelproject.org/'
+license=('AGPL')
+groups=()
+depends=('archipel-agent-nightly' 'archipel-client-nightly'
+         'ejabberd' 'ejabberd-mod_admin_extra-svn' 'ejabberd-xmlrpc-svn'
+         'pwgen')
+makedepends=('git')
+checkdepends=()
+optdepends=()
+provides=()
+conflicts=()
+replaces=()
+backup=('etc/ejabberd/ejabberd.cfg' 'etc/ejabberd/ejabberdctl.cfg')
+options=()
+install="$pkgname.install"
+changelog=
+source=('ejabberd.cfg' 'autoconfigure-archipel')
+noextract=()
+md5sums=('e83e8304cce22dabd7198b625faa2b89'
+         '7e0f54e623bd67f82e92ac6faff0b07a')
+PKGEXT='.tar.gz'
+
+build() {
+  cd "$pkgdir"
+  install -Dm600 "$srcdir/ejabberd.cfg" "$pkgdir/etc/ejabberd/ejabberd.cfg"
+  install -Dm755 "$srcdir/autoconfigure-archipel" "$pkgdir/usr/bin/autoconfigure-archipel"
+}
