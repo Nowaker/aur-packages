@@ -12,8 +12,8 @@ for pkg in "$@"; do
 
   git add .
   makepkg -cf && {    
-    mv *.tar* "$repo"
-    repo-add -f "$repo/shur.db.tar.xz" "$repo"/*.tar*
+    mv *.pkg.tar* "$repo"
+    repo-add -f "$repo/shur.db.tar.xz" "$repo"/*.pkg.tar*
   }
   git clean -df
 done
