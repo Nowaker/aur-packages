@@ -1,15 +1,15 @@
 # Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
 
 _major='6'
-_minor='37'
+_minor='43'
 _bit='64'
 pkgname="oraclejdk${_major}-${_bit}"
 pkgver="${_major}u${_minor}"
 pkgrel='1'
 epoch=
-pkgdesc="Oracle JDK ${_major} (CumulusHost)"
+pkgdesc="Oracle JDK ${_major}"
 arch=('x86_64')
-url='http://www.oracle.com/technetwork/java/javase/downloads/jdk6u37-downloads-1859587.html'
+url='http://www.oracle.com/technetwork/java/javase/downloads/jdk6downloads-1902814.html'
 license=('unknown')
 groups=()
 depends=('glibc' 'libjpeg-turbo' 'lcms2' 'nss' 'ca-certificates-java')
@@ -23,10 +23,9 @@ backup=()
 options=()
 install=
 changelog=
-source=("http://shur.atlashost.eu/files/jdk-$pkgver-linux-${_bit}.bin")
+source=("https://shur.atlashost.eu/files/jdk-$pkgver-linux-${_bit}.bin")
 noextract=()
-md5sums=('82616ae15ca93ccccb37bef3618ecdec')
-PKGEXT='.tar.gz'
+md5sums=('931b2e22c7006dae5554a9c1a620d8f8')
 
 build() {
   zip="jdk-$pkgver-linux-${_bit}.bin"
@@ -35,7 +34,7 @@ build() {
   
   (
     pid="$BASHPID"
-    "./$zip" 2> /dev/null | while read line; do
+    yes | "./$zip" 2> /dev/null | while read line; do
       [[ "$line" == 'Press Enter to continue.....' ]] && kill -9 $pid
     done
   ) || echo

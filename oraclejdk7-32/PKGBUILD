@@ -1,13 +1,15 @@
 # Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
 
+_major='7'
+_minor='17'
 _bit='32'
-pkgname="oraclejdk7-${_bit}"
-pkgver='7u9'
+pkgname="oraclejdk${_major}-${_bit}"
+pkgver="${_major}u${_minor}"
 pkgrel='3'
 epoch=
-pkgdesc='Oracle JDK 7 (CumulusHost)'
-arch=('x86_64')
-url='http://www.oracle.com/technetwork/java/javase/downloads/jdk7u9-downloads-1859576.html'
+pkgdesc="Oracle JDK ${_major}"
+arch=('i686' 'x86_64')
+url='http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html'
 license=('unknown')
 groups=()
 depends=('lib32-glibc' 'lib32-libjpeg-turbo' 'lcms2' 'lib32-nss' 'ca-certificates-java')
@@ -15,17 +17,16 @@ depends=('lib32-glibc' 'lib32-libjpeg-turbo' 'lcms2' 'lib32-nss' 'ca-certificate
 makedepends=()
 checkdepends=()
 optdepends=()
-provides=('java-environment=7' 'java-runtime=7' 'java-runtime-headless=7' 'java-web-start=7')
+provides=("java-environment=${_major}" "java-runtime=${_major}" "java-runtime-headless=${_major}" "java-web-start=${_major}")
 conflicts=()
 replaces=()
 backup=()
 options=()
 install=
 changelog=
-source=("http://shur.atlashost.eu/files/jdk-$pkgver-linux-${_bit}.tar.gz")
+source=("https://shur.atlashost.eu/files/jdk-$pkgver-linux-${_bit}.tar.gz")
 noextract=()
-md5sums=('f66c309ab38d6ba6651f7d98cd58d9d5')
-PKGEXT='.tar.gz'
+md5sums=('694f9592d894b86a8a3cb56bf71768e6')
 
 build() {
   zip="jdk-$pkgver-linux-${_bit}.tar.gz"
@@ -33,7 +34,7 @@ build() {
   tar -xf "jdk-$pkgver-linux-${_bit}.tar.gz"
   rm "../$zip"
   mkdir -p 'opt/java'
-  mv 'jdk1.7.0_09' "$pkgname"
+  mv "jdk1.7.0_${_minor}" "$pkgname"
   mv "$pkgname" 'opt/java'
   mv 'opt' "$pkgdir"
   chown -R root:root "$pkgdir"
