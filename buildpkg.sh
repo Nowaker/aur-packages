@@ -1,5 +1,7 @@
 #!/bin/zsh
 
+DISPLAY=''
+
 root=`pwd`
 repo="`pwd`/repo"
 mkdir -p "$repo"
