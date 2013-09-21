@@ -8,7 +8,7 @@ pkgbase='oss-git'
 pkgname='oss-git'
 true && pkgname=('oss-git' 'libflashsupport-oss-git')
 pkgver='20130921'
-pkgrel='1'
+pkgrel='2'
 pkgdesc='Open Sound System UNIX audio architecture'
 arch=('i686' 'x86_64')
 url='http://developer.opensound.com/'
@@ -82,7 +82,7 @@ build() {
 }
 
 package_oss-git() {
-  pkgdesc="Open Sound System UNIX audio architecture"
+  true && pkgdesc="Open Sound System UNIX audio architecture"
   depends=('gcc' 'make' 'linux-headers' 'libtool' 'sed')
   optdepends=('gtk2: for graphical mixer (ossxmix)'
               'libflashsupport-oss: Adobe flash plugin support')
@@ -102,7 +102,7 @@ package_oss-git() {
 }
 
 package_libflashsupport-oss-git() {
-  pkgdesc="Adobe flash plugin support lib (OSSv4)"
+  true && pkgdesc="Adobe flash plugin support lib (OSSv4)"
   conflicts=('libflashsupport' 'libflashsupport-pulse' 'libflashsupport-oss')
   depends=('oss')
 
