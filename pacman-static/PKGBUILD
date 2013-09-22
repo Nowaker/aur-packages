@@ -1,0 +1,69 @@
+# This is gross, but can totally save you if you need to fix a machine
+# on which you can't easily boot install media.
+
+pkgname=pacman-static
+pkgver=4.1.2
+pkgrel=1
+attr_ver=2.4.47
+assuan_ver=2.1.0
+gpgerr_ver=1.11
+gpgme_ver=1.4.1
+pkgdesc="Statically-compiled pacman (for fixing systems with corrupt libc)"
+arch=('i686' 'x86_64')
+url="http://www.archlinux.org/pacman/"
+license=('GPL')
+groups=('base')
+depends=('glibc>=2.17-2' 'acl>=2.2.51-3' 'libarchive>=3.1.2' 'curl>=7.19.4'
+		       'pth' 'gnupg>=2')
+source=(
+  ftp://ftp.archlinux.org/other/pacman/pacman-$pkgver.tar.gz{,.sig}
+  http://download.savannah.gnu.org/releases/attr/attr-$attr_ver.src.tar.gz{,.sig}
+  ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-${gpgerr_ver}.tar.bz2
+  ftp://ftp.gnupg.org/gcrypt/libassuan/libassuan-$assuan_ver.tar.bz2
+  ftp://ftp.gnupg.org/gcrypt/gpgme/gpgme-${gpgme_ver}.tar.bz2{,.sig}
+)
+sha256sums=('7c059b444735ee254cfbd8dc2fac8c5d61453601f8adaf001c7038cdc673334c'
+            'SKIP'
+            '25772f653ac5b2e3ceeb89df50e4688891e21f723c460636548971652af0a859'
+            'SKIP'
+            'ae3376480a073b120c7add08f1e6cfcc08500648ccf22461cd42db6224a218c0'
+            'a4c5bd3a0c2726e8bcc2ea8a3b15f7aae3bd92d4f85968f315fd3a75d101c267'
+            '7ab63e5086ebe4cfe7f78face1bb059a7a60da586b1e5c6a77bedcd6d04019b8'
+            'SKIP')
+
+
+build() {
+   cd $srcdir/attr-$attr_ver
+   ./configure --prefix=/usr --libdir=/usr/lib --libexecdir=/usr/lib
+   make
+   make install-dev install-lib DESTDIR="$srcdir/overlay"
+
+   cd $srcdir/libassuan-$assuan_ver
+   ./configure --prefix=/usr --enable-static --disable-shared
+   make install DESTDIR="$srcdir/overlay"
+
+   cd $srcdir/libgpg-error-$gpgerr_ver
+   ./configure --prefix=/usr --enable-static --disable-shared
+   make install DESTDIR="$srcdir/overlay"
+
+   cd $srcdir/gpgme-$gpgme_ver
+   ./configure --prefix=/usr --disable-shared
+   make install DESTDIR="$srcdir/overlay"
+   
+   cd $srcdir/pacman-$pkgver
+   LDFLAGS="-static -L$srcdir/overlay/usr/lib" \
+     LIBS="-lz -lgpg-error -lassuan -lssl -lcrypto -lssh2 -ldl \
+     	       -lstdc++ -lpthread" \
+     CPPFLAGS="-I$srcdir/overlay/usr/include" \
+     ./configure --disable-shared --disable-doc \
+       --prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+       --with-scriptlet-shell=/usr/bin/bash \
+       --with-ldconfig=/usr/bin/ldconfig
+
+   make AM_LDFLAGS=-all-static
+}
+
+package() {
+  install -sD $srcdir/pacman-$pkgver/src/pacman/pacman \
+  	  $pkgdir/usr/bin/pacman-static
+}
