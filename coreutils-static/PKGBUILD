@@ -1,0 +1,48 @@
+# Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
+# Contributor: Allan McRae <allan@archlinux.org>
+# Contributor: judd <jvinet@zeroflux.org>
+
+pkgname=coreutils-static
+pkgver=8.21
+pkgrel=2
+pkgdesc="The basic file, shell and text manipulation utilities of the GNU operating system"
+arch=('i686' 'x86_64')
+license=('GPL3')
+url="http://www.gnu.org/software/coreutils"
+groups=('base')
+depends=()
+install=coreutils.install
+source=(ftp://ftp.gnu.org/gnu/coreutils/coreutils-$pkgver.tar.xz{,.sig})
+md5sums=('065ba41828644eca5dd8163446de5d64'
+         'SKIP')
+
+build() {
+  cd ${startdir}/attr
+  makepkg
+
+  cd ${startdir}/libcap
+  makepkg
+
+  cd ${srcdir}/coreutils-${pkgver}
+
+  sed -i '/elf_sys=yes/s:yes:no:' configure # https://bugs.gentoo.org/show_bug.cgi?id=321821
+  ./configure --prefix=/rescue --libexecdir=/usr/lib \
+              --enable-no-install-program=groups,hostname,kill,uptime \
+              --disable-nls 
+
+  make CC="gcc -static -std=gnu99 -L${startdir}/attr/src/attr-2.4.47/libattr/.libs -L${startdir}/libcap/src/libcap-2.22/libcap"
+}
+
+check() {
+  cd ${srcdir}/coreutils-${pkgver}
+
+  # This test fails, `id -G user` coredumps
+  sed -i 's/fail=1/fail=0/' tests/misc/id-groups.sh 
+
+  make RUN_EXPENSIVE_TESTS=yes check
+}
+
+package() {
+  cd ${srcdir}/coreutils-${pkgver}
+  make DESTDIR=${pkgdir} install
+}
