@@ -4,7 +4,7 @@
 
 pkgname=coreutils-static
 pkgver=8.21
-pkgrel=2
+pkgrel=3
 pkgdesc="The basic file, shell and text manipulation utilities of the GNU operating system"
 arch=('i686' 'x86_64')
 license=('GPL3')
@@ -12,16 +12,31 @@ url="http://www.gnu.org/software/coreutils"
 groups=('base')
 depends=()
 install=coreutils.install
-source=(ftp://ftp.gnu.org/gnu/coreutils/coreutils-$pkgver.tar.xz{,.sig})
+source=(ftp://ftp.gnu.org/gnu/coreutils/coreutils-$pkgver.tar.xz{,.sig}
+        'attr.PKGBUILD::https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/attr'
+        'libcap.PKGBUILD::https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/libcap')
 md5sums=('065ba41828644eca5dd8163446de5d64'
-         'SKIP')
+         'SKIP'
+         '6bddfb18346d962ccadd6dd3b68b53a8'
+         'f7e4906dfd74af5343eec94f87b279b4')
+
 
 build() {
-  cd ${startdir}/attr
-  makepkg
+  libs=''
 
-  cd ${startdir}/libcap
-  makepkg
+  cd ${srcdir}
+  for file in ./*.PKGBUILD; do
+    cd ${srcdir}
+    name="${file%.PKGBUILD}"
+    mkdir -p "$name"
+    mv "$file" "$name/PKGBUILD"
+    cd "$name"
+    makepkg -f
+    staticlibdirs=$(find "`pwd`" -name '*.a' -printf "%h\n" | sort -u)
+    for staticlibdir in $staticlibdirs; do
+       libs="$libs -L$staticlibdir"
+    done
+  done
 
   cd ${srcdir}/coreutils-${pkgver}
 
@@ -30,7 +45,7 @@ build() {
               --enable-no-install-program=groups,hostname,kill,uptime \
               --disable-nls 
 
-  make CC="gcc -static -std=gnu99 -L${startdir}/attr/src/attr-2.4.47/libattr/.libs -L${startdir}/libcap/src/libcap-2.22/libcap"
+  make CC="gcc -static -std=gnu99 ${libs}"
 }
 
 check() {
