@@ -1,0 +1,69 @@
+# Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
+# Contributor: Kyle Fuller <inbox@kylefuller.co.uk>
+
+pkgname='inspircd'
+pkgver='2.0.14'
+pkgrel='1'
+pkgdesc='A stable, modern and lightweight IRC daemon'
+arch=('x86_64' 'i686')
+url='http://www.inspircd.org/'
+license=('GPL2')
+depends=('perl')
+makedepends=('pkg-config' 'libmysqlclient' 'postgresql' 'sqlite3' 'libldap' 'geoip'
+             'tre' 'gnutls' 'openssl' 'libgcrypt')
+optdepends=('gnutls: m_ssl_gnutls'
+            'libgcrypt: m_ssl_gnutls'
+            'openssl: m_ssl_openssl'
+            'libmysqlclient: m_mysql'
+            'pcre: m_regex_pcre'
+            'postgresql: m_pgsql'
+            'sqlite3: m_sqlite3'
+            'libldap: m_ldapoper and m_ldapauth'
+            'geoip: m_geoip'
+            'tre: m_regex_tre')
+install='inspircd.install'
+source=("https://github.com/inspircd/inspircd/archive/v$pkgver.tar.gz"
+        'inspircd.service')
+sha512sums=('71b357d033d5eafa82998c53490abb4ba6c4127e2e3f7cc7c32e50610d665dfaf61e044fac35f42aa1c52527800c80021567ef410db41e067512ecefc104a8ef'
+            '6ec751494f35f2ae141a9ad50d44f80f64b6dfa43c76ab2bf2c4b9065696092d1a8d1770bee86515bd9c2abc20669d5809d519aad348ca6ea728775f111ed321')
+
+
+build() {
+  cd "${srcdir}/inspircd-${pkgver}"
+
+  ./configure \
+    --enable-extras=m_geoip.cpp \
+    --enable-extras=m_ldapauth.cpp \
+    --enable-extras=m_ldapoper.cpp \
+    --enable-extras=m_mysql.cpp \
+    --enable-extras=m_pgsql.cpp \
+    --enable-extras=m_regex_pcre.cpp \
+    --enable-extras=m_regex_posix.cpp \
+    --enable-extras=m_regex_tre.cpp \
+    --enable-extras=m_sqlite3.cpp
+
+  ./configure \
+    --prefix=/usr/lib/inspircd \
+    --binary-dir=/usr/sbin \
+    --module-dir=/usr/lib/inspircd/modules \
+    --config-dir=/etc/inspircd \
+    --enable-gnutls \
+    --enable-openssl \
+    --enable-epoll
+
+  make
+}
+
+package() {
+  install -Dm644 "${srcdir}"/inspircd.service "${pkgdir}"/usr/lib/systemd/system/inspircd.service
+  install -o141 -g141 -dm750 "${pkgdir}/var/log/inspircd"
+
+  cd "${srcdir}/inspircd-${pkgver}"
+  make DESTDIR="$pkgdir" INSTUID=141 install
+
+  mkdir -p "${pkgdir}"/usr/share/inspircd
+  mv "${pkgdir}"/etc/inspircd/examples "${pkgdir}"/usr/share/inspircd/examples
+
+  rm -rf "${pkgdir}"/usr/lib/inspircd/logs
+  rm -rf "${pkgdir}"/usr/lib/inspircd/data
+}
