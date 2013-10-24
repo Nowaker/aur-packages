@@ -3,7 +3,7 @@
 
 pkgname='inspircd'
 pkgver='2.0.14'
-pkgrel='1'
+pkgrel='2'
 pkgdesc='A stable, modern and lightweight IRC daemon'
 arch=('x86_64' 'i686')
 url='http://www.inspircd.org/'
@@ -44,7 +44,7 @@ build() {
 
   ./configure \
     --prefix=/usr/lib/inspircd \
-    --binary-dir=/usr/sbin \
+    --binary-dir=/usr/bin \
     --module-dir=/usr/lib/inspircd/modules \
     --config-dir=/etc/inspircd \
     --enable-gnutls \
