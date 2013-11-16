@@ -10,7 +10,7 @@ url='http://www.zsh.org/'
 license=('custom')
 depends=('pcre' 'libcap' 'gdbm')
 install=zsh.install
-source=("http://downloads.sourceforge.net/${pkgname}/${pkgname}-${pkgver}.tar.bz2"
+source=("zsh::http://optimate.dl.sourceforge.net/project/zsh/zsh/${pkgver}/zsh-${pkgver}.tar.bz2"
         'gdbm.PKGBUILD::https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/gdbm'
         'gdbm-1.10-zeroheaders.patch::https://projects.archlinux.org/svntogit/packages.git/plain/trunk/gdbm-1.10-zeroheaders.patch?h=packages/gdbm'
         'pcre.PKGBUILD::https://projects.archlinux.org/svntogit/packages.git/plain/trunk/PKGBUILD?h=packages/pcre'
@@ -26,7 +26,7 @@ sha512sums=('096e9fee085bbcb88035984c28cc9d186ae549f9ab09d699f380438b82fcf09b03a
             'SKIP')
 
 prepare() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/zsh-${pkgver}"
 
   # Set correct keymap path
   sed -i 's#/usr/share/keymaps#/usr/share/kbd/keymaps#g' Completion/Unix/Command/_loadkeys
@@ -75,7 +75,7 @@ build() {
     rm `realpath *.pkg.tar.xz` # yaourt bug: http://bugs.archlinux.fr/task/323
   done || msg2 'No extra PKGBUIDs, skipping'
 
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/zsh-${pkgver}"
   ./configure --prefix=/rescue \
     --enable-etcdir=/etc/zsh \
     --enable-zshenv=/etc/zsh/zshenv \
@@ -87,8 +87,8 @@ build() {
     --with-term-lib='ncursesw' \
     --enable-multibyte \
     --enable-function-subdirs \
-    --enable-fndir=/usr/share/zsh/functions \
-    --enable-scriptdir=/usr/share/zsh/scripts \
+    --enable-fndir=/rescue/share/zsh/functions \
+    --enable-scriptdir=/rescue/share/zsh/scripts \
     --with-tcsetpgrp \
     --enable-pcre \
     --enable-cap \
@@ -98,11 +98,11 @@ build() {
 }
 
 check() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/zsh-${pkgver}"
   HOME="${srcdir}" make check
 }
 
 package() {
-  cd "${srcdir}/${pkgname}-${pkgver}"
+  cd "${srcdir}/zsh-${pkgver}"
   make DESTDIR="${pkgdir}/" install
 }
