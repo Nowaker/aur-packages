@@ -20,7 +20,6 @@ optdepends=('ejabberd: An XMPP Server used by archipel for communication with VM
 provides=('archipel-agent')
 conflicts=('archipel-agent')
 options=(!strip !emptydirs)
-backup=('etc/archipel/archipel.conf')
 install='archipel-agent.install'
 source=('git://github.com/ArchipelProject/Archipel.git'
         'initinstall.patch'
@@ -42,13 +41,15 @@ package() {
     popd 1>/dev/null
   done;
 
-  mkdir -p "$pkgdir/etc/systemd"
-  mkdir -p "$pkgdir/usr/lib/systemd/system"
-
   cd "$pkgdir"
   patch -p1 < "$srcdir"/initinstall.patch
   "$pkgdir"/usr/bin/archipel-initinstall -p "$pkgdir" > /dev/null 2>&1
 
+  chmod 0700 "$pkgdir"/etc/archipel 
+
+  mkdir -p "$pkgdir/usr/lib/systemd/system"
   cp "$pkgdir"/usr/install/usr/lib/systemd/system/*.service "$pkgdir"/usr/lib/systemd/system/
+
+  find "$pkgdir"/etc/archipel -type f -exec mv '{}' '{}'.example \;
   rm -rf "$pkgdir/usr/install"
 }
