@@ -5,10 +5,10 @@
 # Contributor: m4.rc0 <m4.rc0 at o2 (dot) pl>
 pkgname='rubymine-eap'
 _pkgname='RubyMine'
-_pkgver='133.84'
+_pkgver='134.1146'
 pkgver="6.0_${_pkgver}"
 pkgrel='1'
-pkgdesc="Ruby and Rails IDE with the full stack of essential developer tools."
+pkgdesc="Ruby and Rails IDE with the full stack of essential developer tools (Hinoki EAP)."
 arch=('i686' 'x86_64')
 options=('!strip')
 url="http://www.jetbrains.com/rubymine"
@@ -17,7 +17,7 @@ depends=('java-runtime')
 source=(http://download.jetbrains.com/ruby/${_pkgname}-${_pkgver}.tar.gz
         jetbrains-rubymine
         jetbrains-rubymine.desktop)
-sha256sums=('aafc5ddd2d62ff3411052bddfab642e91554e9db2a194c9ee5aae700002b4e54'
+sha256sums=('13e680dccb0c35788acaf1630c08fd4065b5f0623b49b613c04d5b1f889c2a9e'
             '5907872548a4698c4a58a229296ff519031fba30b070257ff1a5e308faaff3c3'
             '8120624912912c0c8edfcde9705ae38a395007caccfb499a39ef6c172b2793f4')
 PKGEXT='.pkg.tar.gz' # prevent a time-consuming compression with xz
@@ -25,7 +25,7 @@ PKGEXT='.pkg.tar.gz' # prevent a time-consuming compression with xz
 package() {
   cd "${srcdir}"
 
-  realsrcdir="${_pkgname}-6.0/"
+  realsrcdir="${_pkgname}-${_pkgver}/"
 
   mkdir -p "${pkgdir}/opt/${pkgname}"
   cp -r ${srcdir}/${realsrcdir}* "${pkgdir}/opt/${pkgname}"
