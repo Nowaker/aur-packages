@@ -4,7 +4,7 @@
 # Contributor: Travis Lyons <travis.lyons@gmail.com>
 
 pkgname='archipel-client-nightly'
-pkgver='20131207'
+pkgver='20140330'
 pkgrel='1'
 pkgdesc='A solution to manage and supervise virtual machines. (GUI)'
 arch=('any')

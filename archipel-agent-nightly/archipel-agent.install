@@ -9,8 +9,9 @@ pre_upgrade()
 post_install()
 {
 	cat <<- EOF
-		==> Initialize Archipel Agent config and data files by running:
-		# archipel-initinstall
+    You need to configure Archipel agent: /etc/archipel/archipel.conf
+    https://github.com/ArchipelProject/Archipel/wiki/Installation%3A-Agent
+    
 		==> Start Archipel using systemd:
 		# systemctl start archipel	
 		==> Auto-start Archipel on boot:
