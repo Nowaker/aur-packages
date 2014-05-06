@@ -5,7 +5,7 @@ set -e
 for pkg in "$@"; do
   pushd .
   cd "$pkg"
-  git clean -df
+  git clean -df .
   popd
 done
 
