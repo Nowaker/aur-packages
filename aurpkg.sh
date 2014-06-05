@@ -11,7 +11,7 @@ for pkg in "$@"; do
   cd "$dir"
 
   git add .
-  makepkg -cfS && {    
+  mkaurball && {    
     burp *.tar*
   }
   git clean -df
