@@ -1,7 +1,7 @@
 # Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
 
 pkgname='oraclejdk-all'
-pkgver='6u43.7u17'
+pkgver='6u45.7u60'
 pkgrel='1'
 epoch=
 pkgdesc='Oracle JDK 6 & 7'
