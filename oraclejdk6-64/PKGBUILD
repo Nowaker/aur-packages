@@ -8,14 +8,13 @@ _arch='x64'
 pkgname="oraclejdk${_major}-${_bit}"
 pkgver="${_major}u${_minor}"
 pkgrel='1'
-pkgdesc="Oracle JDK ${_major}"
+pkgdesc="Non-conflicting ${_bit}-bit Oracle JDK ${_major} for servers"
 arch=('x86_64')
 url='http://www.oracle.com/technetwork/java/javase/downloads/java-archive-downloads-javase6-419409.html'
 license=('unknown')
 depends=('glibc' 'libjpeg-turbo' 'lcms2' 'nss' 'ca-certificates-java')
 provides=("java-environment=${_major}" "java-runtime=${_major}" "java-runtime-headless=${_major}" "java-web-start=${_major}")
-DLAGENTS=('http::/usr/bin/curl -fLC - --retry 3 --retry-delay 3 -O --header "Cookie: gpw_e24=h"')
-source=("http://download.oracle.com/otn-pub/java/jdk/${pkgver}-${_build}/jdk-${pkgver}-linux-${_arch}.bin")
+source=("http://ghaffarian.net/downloads/Java/JDK/jdk-${pkgver}-linux-${_arch}.bin")
 sha512sums=('bf2fcb8696b9e43af80d9114fd984d86317422e8c65dd464a7abff4017a5c4c0d8ebdbd8418270fc8c6c52c2b97498f02742440ed4f8394b3612d2e2186c30d8')
 options=(!strip)
 PKGEXT=('.pkg.tar.gz')
