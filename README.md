@@ -11,3 +11,5 @@ Files go to `/usr/lib/jvm/oraclejdk$VER-$ARCH`, e.g. `/usr/lib/jvm/oraclejdk8-32
 Source `/etc/conf.d/oracjejdk7-64` to get `$JAVA_HOME` variable pointing to a specific JDK.
 In systemd service file source the config like this: `EnvironmentFile=/etc/conf.d/oraclejdk7-64`
 
+It's encouraged to symlink `/usr/lib/jvm/default-java` to the prefered version of Java, e.g. `ln -s /usr/lib/jvm/oraclejdk7-64 /usr/lib/jvm/default-java`.
+
