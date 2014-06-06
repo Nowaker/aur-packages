@@ -1,10 +1,10 @@
 # Maintainer: Damian Nowak <damian.nowak@atlashost.eu>
 
 pkgname='oraclejdk-all'
-pkgver='6u45.7u60'
+pkgver='8'
 pkgrel='1'
 epoch=
-pkgdesc='Oracle JDK 6 & 7'
+pkgdesc='Non-conflicting 32-bit and 64-bit Oracle JDK 6, 7 and 8 for servers'
 arch=('x86_64')
 license=('unknown')
-depends=('oraclejdk6-32' 'oraclejdk6-64' 'oraclejdk7-32' 'oraclejdk7-64')
+depends=('oraclejdk6-32' 'oraclejdk6-64' 'oraclejdk7-32' 'oraclejdk7-64' 'oraclejdk8-32' 'oraclejdk8-64')
