@@ -4,7 +4,8 @@ These are my Arch Linux packages. [Browse on AUR](https://aur.archlinux.org/pack
 
 These Oracle JDK packages are intended for servers only. Don't install on desktops.
 They don't conflict with each other - install as many JDK versions as you need.
-Both 32-bit and 64-bit Java are provided system. You normally want 64-bit versions unless you have some specific needs.
+Both 32-bit and 64-bit Java are provided.
+You normally want 64-bit versions unless you have some specific needs.
 
 Files go to `/usr/lib/jvm/oraclejdk$VER-$ARCH`, e.g. `/usr/lib/jvm/oraclejdk8-32`.
 
