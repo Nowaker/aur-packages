@@ -22,7 +22,7 @@ options=()
 changelog=
 source=()
 noextract=()
-md5sums=()
+sha512sums=()
 PKGEXT='.tar.gz'
 
 build() {
