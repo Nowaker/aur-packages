@@ -16,14 +16,14 @@ source=('git+https://github.com/retspen/webvirtmgr.git'
         'webvirtmgr.ini')
 sha512sums=('SKIP'
             'a8a64325750a1a6815c1ff9222373682f2300d0d636bb88675ae113b027a0e6d058e949344ae22357ff1258025ec0d32ca32a4383a37cadb88c9e5d180d2d147')
-PKGEXT='.tar.gz'
+PKGEXT='.pkg.tar.gz'
 
 pkgver() {
   cd 'webvirtmgr'
   git describe --long --tags | sed -r 's/([^-]*-g)/r\1/;s/-/./g'
 }
 
-build() {
+package() {
   outputdir="${pkgdir}/usr/lib/webvirtmgr"
   install -Dm0644 'webvirtmgr.ini' "${pkgdir}/etc/supervisor.d/webvirtmgr.ini"
   install -dm0755 "${outputdir}" "${pkgdir}/var/lib/webvirtmgr"

@@ -23,9 +23,9 @@ changelog=
 source=()
 noextract=()
 sha512sums=()
-PKGEXT='.tar.gz'
+PKGEXT='.pkg.tar.gz'
 
-build() {
+package() {
   cd "$srcdir"
   
   cd "$pkgdir"
