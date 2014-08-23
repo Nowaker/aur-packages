@@ -1,5 +1,7 @@
 #!/bin/zsh
 
-cd "$1"
-makepkg -g
-cd ..
+for pkg in "$@"; do
+  cd "$pkg"
+  makepkg -g
+  cd ..
+done
