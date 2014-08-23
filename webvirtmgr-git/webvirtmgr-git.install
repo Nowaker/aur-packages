@@ -15,6 +15,10 @@ post_install() {
     # systemctl enable supervisord
     # systemctl start supervisord
 
+    To access VNC console you need to enable the NoVNC proxy.
+    # systemctl enable webvirtmgr-novnc
+    # systemctl start webvirtmgr-novnc
+
     See the wiki for more details:
     https://github.com/retspen/webvirtmgr/wiki/Install-WebVirtMgr
 
