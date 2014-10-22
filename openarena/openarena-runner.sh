@@ -15,4 +15,4 @@ else
 fi
 
 cd '/opt/openarena'
-"./${file}.${arch}"
+"./${file}.${arch}" "$@"
