@@ -6,7 +6,7 @@
 pkgname='rubymine-eap'
 _pkgname='RubyMine'
 _pkgver='139.160'
-pkgver="7.0"
+pkgver="7.0_${_pkgver}"
 pkgrel='1'
 pkgdesc="Ruby and Rails IDE with the full stack of essential developer tools (Tsubaki EAP)"
 arch=('i686' 'x86_64')
@@ -25,7 +25,7 @@ PKGEXT='.pkg.tar.gz' # prevent a time-consuming compression with xz
 package() {
   cd "${srcdir}"
 
-  realsrcdir="${_pkgname}-${pkgver}/"
+  realsrcdir="${_pkgname}-7.0/"
 
   mkdir -p "${pkgdir}/opt/${pkgname}"
   cp -r ${srcdir}/${realsrcdir}* "${pkgdir}/opt/${pkgname}"
