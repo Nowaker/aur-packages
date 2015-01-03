@@ -21,7 +21,7 @@ md5sums=('cf1268c622908047db1cc0f5987ad4ca'
 _AGENT_URL='YOURHOST/update/buildAgent.zip'
 
 
-build() {
+package() {
   if [ -z "${_AGENT_URL}" ] || [ "${_AGENT_URL}" == 'YOURHOST/update/buildAgent.zip' ]; then
     echo 'Please edit PKGBUILD before installing.'
     exit 1
