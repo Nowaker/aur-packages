@@ -6,8 +6,9 @@
 # Contributor: Bjørn Madsen <bm@aeons.dk>
 pkgname='rubymine-eap'
 _pkgname='RubyMine'
-_pkgver='141.564'
-pkgver="7.1_${_pkgver}"
+_pkgver='7.1'
+_pkgbuild='141.564'
+pkgver="${_pkgver}_${_pkgbuild}"
 pkgrel='1'
 pkgdesc="Ruby and Rails IDE with the full stack of essential developer tools (Satsuki EAP)"
 arch=('i686' 'x86_64')
@@ -15,7 +16,7 @@ options=('!strip')
 url="http://www.jetbrains.com/rubymine"
 license=('custom')
 depends=('java-runtime')
-source=(http://download.jetbrains.com/ruby/${_pkgname}-${_pkgver}.tar.gz
+source=(http://download.jetbrains.com/ruby/${_pkgname}-${_pkgbuild}.tar.gz
         rubymine-eap
         rubymine-eap.desktop)
 sha256sums=('341b97c9b29f9ec6ef92e9d8a2f2a08459e74afd3ef4c7ef0ac646888885db7b'
