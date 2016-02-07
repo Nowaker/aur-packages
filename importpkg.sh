@@ -7,6 +7,6 @@ if [ -z "$package" ]; then
   exit 1
 fi
 
-wget -c "https://aur.archlinux.org/packages/${package:0:2}/${package}/${package}.tar.gz"
+wget -c "https://aur.archlinux.org/cgit/aur.git/snapshot/${package}.tar.gz"
 tar -xf "$package.tar.gz"
 rm "$package.tar.gz"
